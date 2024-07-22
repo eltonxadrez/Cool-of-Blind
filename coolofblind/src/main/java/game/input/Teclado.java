@@ -1,6 +1,8 @@
 package game.input;
 
-import game.Game;
+
+
+import game.config.Game;
 import game.graphics.Janela;
 
 import java.awt.event.KeyEvent;
