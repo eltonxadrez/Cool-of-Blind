@@ -1,5 +1,6 @@
 package game;
 
+import game.board.Board;
 import game.graphics.Janela;
 import game.graphics.Renderizador;
 import game.input.Teclado;
@@ -12,6 +13,7 @@ public class Game implements Runnable{
     public Renderizador renderizador;
     public Teclado teclado;
     public Thread gameThread;
+    public Board board;
 
     //tamanho janela
     public int width, height;
@@ -19,9 +21,10 @@ public class Game implements Runnable{
     public int y = 24;
     public int x = 10;
 
-    public int speedGame = 75;
+    //public int speedGame = 75;
     public boolean renderizar = true;
     public boolean isMenu = true;
+    private int fps = 60;
 
     public Game() {
         init();
@@ -35,6 +38,9 @@ public class Game implements Runnable{
         this.initMainComponents();
 
         this.initMainConections();
+
+        this.board = new Board();
+        this.renderizador.elementosRenderizadosList.add(this.board);
 
         //this.iniciarMenu();
     }
@@ -74,7 +80,7 @@ public class Game implements Runnable{
                 if(renderizar) {
                     this.renderizador.render();
                 }
-                Thread.sleep(1000/75);
+                Thread.sleep(1000/this.fps);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

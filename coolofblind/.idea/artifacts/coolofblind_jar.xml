@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="coolofblind:jar">
+    <output-path>$USER_HOME$/OneDrive/Documentos/cool of blind/executavel</output-path>
+    <root id="archive" name="coolofblind.jar">
+      <element id="module-output" name="coolofblind" />
+    </root>
+  </artifact>
+</component>
