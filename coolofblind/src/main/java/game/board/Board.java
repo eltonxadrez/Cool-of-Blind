@@ -1,13 +1,13 @@
 package game.board;
 
+
+
 import game.graphics.Concreto;
 import game.graphics.ImageRepository;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 public class Board implements Concreto {
 

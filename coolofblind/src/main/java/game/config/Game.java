@@ -1,4 +1,6 @@
-package game;
+package game.config;
+
+
 
 import game.board.Board;
 import game.graphics.Janela;
