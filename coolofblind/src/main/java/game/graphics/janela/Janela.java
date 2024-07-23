@@ -39,7 +39,7 @@ public class Janela extends JFrame {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setVisible(true);
             this.fullScreen = false;
-            this.renderizador.renderizar = true;
+//            this.renderizador.renderizar = true;
         }
         else {
             this.renderizador.renderizar = false;
@@ -50,7 +50,7 @@ public class Janela extends JFrame {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setVisible(true);
             this.fullScreen = true;
-            this.renderizador.renderizar = true;
+//            this.renderizador.renderizar = true;
         }
     }
 }

@@ -36,7 +36,7 @@ public class BoardLayer extends Layer{
     }
 
     @Override
-    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala) {
+    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala, Integer posXCam, Integer posYCam) {
 
 
         for (int x = 0; x < this.board.getBoardTest().length; x++){
@@ -44,8 +44,8 @@ public class BoardLayer extends Layer{
 //                if(this.board.getBoardTest()[x][y] == 'c'){
 
                     graphics2D.drawImage(this.imgIsoGrass03,
-                            (janelaHeight/2) + (x * ((32/2) * escala) - (y * ((32 / 2) * escala))) ,
-                            (janelaWidth /2) + (y * ((17/2) * escala) + (x * ((17 / 2) * escala))) ,
+                            (janelaHeight/2) + (x * ((32/2) * escala) - (y * ((32 / 2) * escala)) + (posXCam)) ,
+                            (janelaWidth /2) + (y * ((17/2) * escala) + (x * ((17 / 2) * escala)) + (posYCam)) ,
                             32 * escala,
                             17 * escala,
                             null);

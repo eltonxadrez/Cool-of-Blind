@@ -21,8 +21,11 @@ public class ListenerJanela extends ComponentAdapter {
 
     @Override
     public void componentResized(ComponentEvent evt) {
+        this.renderizador.renderizar = false;
+//        this.renderizador.changeResolution = true;
         this.renderizador.setJanelaWidth((int) this.janela.getBounds().getHeight());
         this.renderizador.setJanelaHeight((int) this.janela.getBounds().getWidth());
+        this.renderizador.renderizar = true;
         this.renderizador.requestFocusInWindow();
     }
 }

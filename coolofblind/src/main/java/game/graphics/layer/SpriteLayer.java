@@ -28,12 +28,12 @@ public class SpriteLayer extends Layer{
     }
 
     @Override
-    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala) {
+    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala, Integer posXCam, Integer posYCam) {
         int x = 3;
         int y = 3;
         graphics2D.drawImage(this.imgSprWarriorLb,
-                (janelaHeight/2) + (x * ((32/2) * escala) - (y * ((32 / 2) * escala)) + (7 * escala) ) ,
-                (janelaWidth /2) + (y * ((17/2) * escala) + (x * ((17 / 2) * escala)) - (22 * escala) ) ,
+                (janelaHeight/2) + (x * ((32/2) * escala) - (y * ((32 / 2) * escala)) + (7 * escala) + (posXCam)) ,
+                (janelaWidth /2) + (y * ((17/2) * escala) + (x * ((17 / 2) * escala)) - (22 * escala) + (posYCam)) ,
                 18 * escala,
                 35 * escala,
                 null);

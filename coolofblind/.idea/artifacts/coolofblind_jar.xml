@@ -2,6 +2,9 @@
   <artifact type="jar" name="coolofblind:jar">
     <output-path>$USER_HOME$/OneDrive/Documentos/cool of blind/executavel</output-path>
     <root id="archive" name="coolofblind.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$USER_HOME$/OneDrive/Documentos/cool of blind/executavel/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="coolofblind" />
     </root>
   </artifact>

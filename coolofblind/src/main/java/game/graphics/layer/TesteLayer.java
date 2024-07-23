@@ -10,10 +10,10 @@ public class TesteLayer extends Layer{
     }
 
     @Override
-    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala) {
+    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala, Integer posXCam, Integer posYCam) {
         //painel cinza
-        graphics2D.setColor(new Color(75, 75, 75));
-        graphics2D.fillRect(janelaHeight / 7, 0, janelaHeight - (janelaHeight / 4) , janelaWidth);
+//        graphics2D.setColor(new Color(75, 75, 75));
+//        graphics2D.fillRect(janelaHeight / 7, 0, janelaHeight - (janelaHeight / 4) , janelaWidth);
 
         //linha vermelha vertical centralizada
         graphics2D.setColor(Color.RED);

@@ -5,7 +5,6 @@ import game.graphics.layer.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.Serial;
@@ -21,10 +20,13 @@ public class Renderizador extends Canvas implements Runnable {
     private LayerImpl layers;
     private Integer fps;
     private Integer escala;
+    private Integer posXCam;
+    private Integer posYCam;
     private Game game;
 
     //testando se é possivel desvincular
     private Thread renderizadorThread;
+    private Boolean pausado;
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -32,6 +34,7 @@ public class Renderizador extends Canvas implements Runnable {
     public boolean renderizar = true;
 
     public Renderizador(Game game, Integer janelaWidth, Integer janelaHeight, Integer fps) {
+        this.pausado = false;
         this.game = game;
         this.requestFocusInWindow();
         this.setBackground(Color.BLACK);
@@ -40,6 +43,8 @@ public class Renderizador extends Canvas implements Runnable {
         this.janelaHeight = janelaHeight;
         this.fps = fps;
         this.escala = 4;
+        this.posXCam = 0;
+        this.posYCam = 0;
         //criar Layer Manager e Layers usados na renderizacao
         this.inciarLayers();
     }
@@ -58,8 +63,64 @@ public class Renderizador extends Canvas implements Runnable {
         this.layers.switchShowCamada(camada);
     }
 
+    public void diminuirEscala(){
+        if(this.escala > 2){
+            this.escala--;
+        }
+    }
+
+    public void aumentarEscala(){
+        if(this.escala < 10){
+            this.escala++;
+        }
+    }
+
+    private Boolean posXP = false;
+    public void moveCamXP(){
+        if(this.posXP){
+            this.posXP = false;
+        }
+        else{
+            this.posXP = true;
+        }
+//        this.posXCam ++;
+    }
+
+    private Boolean posXM = false;
+    public void moveCamXM(){
+        if(this.posXM){
+            this.posXM = false;
+        }
+        else{
+            this.posXM = true;
+        }
+//        this.posXCam --;
+    }
+
+    private Boolean posYP = false;
+    public void moveCamYP(){
+        if(this.posYP){
+            this.posYP = false;
+        }
+        else{
+            this.posYP = true;
+        }
+//        this.posYCam ++;
+    }
+
+    private Boolean posYM = false;
+    public void moveCamYM(){
+        if(this.posYM){
+            this.posYM = false;
+        }
+        else{
+            this.posYM = true;
+        }
+//        this.posYCam --;
+    }
+
     public void render() {
-        if(renderizar) {
+        if(renderizar && !pausado) {
             this.bs = this.getBufferStrategy();
 
             if(this.bs == null) {
@@ -69,14 +130,58 @@ public class Renderizador extends Canvas implements Runnable {
 
             this.graphics2d = (Graphics2D) bs.getDrawGraphics();
 
+            this.moverCamera();
+
             for (Map.Entry<Integer, Layer> entry : this.layers.getLayerMap().entrySet()){
                 if(entry.getValue().isShow()){
-                    entry.getValue().render(this.graphics2d, this.janelaWidth, this.janelaHeight, this.escala);
+                    entry.getValue().render(this.graphics2d, this.janelaWidth, this.janelaHeight, this.escala, this.posXCam, this.posYCam);
                 }
             }
-
-            this.bs.show();
+            if(renderizar && !pausado){
+                this.bs.show();
+            }
+            //puxar resolucao
         }
+    }
+
+    public void moverCamera(){
+        if(this.posYM){
+            this.posYCam += 3;
+        }
+        if(this.posYP){
+            this.posYCam -= 3;
+        }
+        if(this.posXM){
+            this.posXCam += 3;
+        }
+        if(this.posXP){
+            this.posXCam -= 3;
+        }
+    }
+
+    public void pausarRender() {
+        if(pausado) {
+            this.despausarThreadRender();
+            this.pausado = false;
+//			this.teclado.tecladoLivre = true;
+        }
+        else {
+            this.pausado = true;
+//			System.out.println("PAUSADO!");
+//			this.teclado.tecladoLivre = false;
+        }
+    }
+
+    public synchronized void pausarThreadRender() {
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void despausarThreadRender() {
+        notifyAll();
     }
 
     @Override
@@ -85,7 +190,12 @@ public class Renderizador extends Canvas implements Runnable {
         System.out.println("INICIANDO THREAD RENDER");
         while(true) {
             try {
-                this.render();
+                if(pausado){
+                    this.pausarThreadRender();
+                }
+                else{
+                    this.render();
+                }
                 Thread.sleep(1000/this.fps);
             } catch (InterruptedException e) {
                 e.printStackTrace();

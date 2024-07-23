@@ -11,7 +11,7 @@ public class Board {
     private char[][] boardTest;
 
     public Board() {
-        this.boardTest = new char[6][6];
+        this.boardTest = new char[200][200];
         this.fillBoard();
         this.desenharBoard();
     }
