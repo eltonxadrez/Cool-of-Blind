@@ -3,9 +3,31 @@ package game.board;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Getter
 @Setter
 public class Board {
+
+    private Map<Node, List<Node>> nodes = new HashMap<>();
+
+    private Node firstNode;
+
+    public void addNode(Node node, List<Node> adjNodes, boolean isFirst) {
+        this.nodes.put(node, adjNodes);
+        if(isFirst) {
+            this.firstNode = node;
+        }
+    }
+
+    public List<Node> findAdjNodes(Node node){
+        return this.nodes.get(node);
+    }
+
+
+
 
     //teste
     private char[][] boardTest;
