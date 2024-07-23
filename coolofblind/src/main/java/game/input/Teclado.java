@@ -64,6 +64,14 @@ public class Teclado implements KeyListener {
             System.out.println("camada 5");
             this.renderizador.switchShowCamada(5);
         }
+        if(e.getKeyCode() == KeyEvent.VK_M) {
+            System.out.println("aumentar escala");
+            this.renderizador.setEscala(this.renderizador.getEscala() + 1);
+        }
+        if(e.getKeyCode() == KeyEvent.VK_N) {
+            System.out.println("diminuir escala");
+            this.renderizador.setEscala(this.renderizador.getEscala() - 1);
+        }
     }
 
     @Override

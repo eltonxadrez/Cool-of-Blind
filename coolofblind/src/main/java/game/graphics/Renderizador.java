@@ -1,9 +1,7 @@
 package game.graphics;
 
-import game.graphics.layer.BackgroundLayer;
-import game.graphics.layer.Layer;
-import game.graphics.layer.LayerImpl;
-import game.graphics.layer.TesteLayer;
+import game.config.Game;
+import game.graphics.layer.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +20,8 @@ public class Renderizador extends Canvas implements Runnable {
     private Integer janelaWidth, janelaHeight;
     private LayerImpl layers;
     private Integer fps;
+    private Integer escala;
+    private Game game;
 
     //testando se é possivel desvincular
     private Thread renderizadorThread;
@@ -31,13 +31,15 @@ public class Renderizador extends Canvas implements Runnable {
 
     public boolean renderizar = true;
 
-    public Renderizador(Integer janelaWidth, Integer janelaHeight, Integer fps) {
+    public Renderizador(Game game, Integer janelaWidth, Integer janelaHeight, Integer fps) {
+        this.game = game;
         this.requestFocusInWindow();
         this.setBackground(Color.BLACK);
         this.setPreferredSize(new Dimension(janelaWidth, janelaHeight));
         this.janelaWidth = janelaWidth;
         this.janelaHeight = janelaHeight;
         this.fps = fps;
+        this.escala = 4;
         //criar Layer Manager e Layers usados na renderizacao
         this.inciarLayers();
     }
@@ -47,6 +49,9 @@ public class Renderizador extends Canvas implements Runnable {
         this.layers = new LayerImpl();
         this.layers.addLayer(new BackgroundLayer(1, true));
         this.layers.addLayer(new TesteLayer(2, true));
+        this.layers.addLayer(new BoardLayer(3, true, this.game.getBoard()));
+        this.layers.addLayer(new SpriteLayer(4, true, this.game.getBoard()));
+        //hud
     }
 
     public void switchShowCamada(Integer camada){
@@ -66,7 +71,7 @@ public class Renderizador extends Canvas implements Runnable {
 
             for (Map.Entry<Integer, Layer> entry : this.layers.getLayerMap().entrySet()){
                 if(entry.getValue().isShow()){
-                    entry.getValue().render(this.graphics2d, this.janelaWidth, this.janelaHeight);
+                    entry.getValue().render(this.graphics2d, this.janelaWidth, this.janelaHeight, this.escala);
                 }
             }
 
