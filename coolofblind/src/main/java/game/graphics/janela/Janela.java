@@ -1,23 +1,27 @@
-package game.graphics;
+package game.graphics.janela;
+
+import game.graphics.Renderizador;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 import java.io.Serial;
 
+@Getter
+@Setter
 public class Janela extends JFrame {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public boolean fullScreen = false;
-    public Renderizador renderizador;
+    private boolean fullScreen = false;
+    private Renderizador renderizador;
 
     public Janela(Renderizador renderizador, int width, int height) {
         this.renderizador = renderizador;
         this.setBounds(0, 0, width, height);
-//		this.setUndecorated(this.fullScreen);
         this.add(renderizador);
         this.setTitle("Cool of Blind");
-//		this.pack();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,5 +53,4 @@ public class Janela extends JFrame {
             this.renderizador.renderizar = true;
         }
     }
-
 }

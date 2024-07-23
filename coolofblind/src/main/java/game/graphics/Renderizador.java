@@ -1,34 +1,57 @@
 package game.graphics;
 
+import game.graphics.layer.BackgroundLayer;
+import game.graphics.layer.Layer;
+import game.graphics.layer.LayerImpl;
+import game.graphics.layer.TesteLayer;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.Serial;
-import java.util.ArrayList;
+import java.util.Map;
 
-public class Renderizador extends Canvas {
+@Getter
+@Setter
+public class Renderizador extends Canvas implements Runnable {
 
-    public Graphics2D graphics2d;
+    private Graphics2D graphics2d;
+    private BufferStrategy bs;
+    private Integer janelaWidth, janelaHeight;
+    private LayerImpl layers;
+    private Integer fps;
 
-    public BufferStrategy bs;
-    public int width, height;
-    public JFrame jFrame;
-
-    public ArrayList<Concreto> elementosRenderizadosList;
+    //testando se é possivel desvincular
+    private Thread renderizadorThread;
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     public boolean renderizar = true;
 
-    public Renderizador(int width, int height) {
+    public Renderizador(Integer janelaWidth, Integer janelaHeight, Integer fps) {
+        this.requestFocusInWindow();
         this.setBackground(Color.BLACK);
-        this.elementosRenderizadosList = new ArrayList<Concreto>();
-        this.setPreferredSize(new Dimension(width, height));
-        this.width = width;
-        this.height = height;
+        this.setPreferredSize(new Dimension(janelaWidth, janelaHeight));
+        this.janelaWidth = janelaWidth;
+        this.janelaHeight = janelaHeight;
+        this.fps = fps;
+        //criar Layer Manager e Layers usados na renderizacao
+        this.inciarLayers();
     }
 
+    //adicionar as camadas a serem renderizadas aqui
+    private void inciarLayers() {
+        this.layers = new LayerImpl();
+        this.layers.addLayer(new BackgroundLayer(1, true));
+        this.layers.addLayer(new TesteLayer(2, true));
+    }
+
+    public void switchShowCamada(Integer camada){
+        this.layers.switchShowCamada(camada);
+    }
 
     public void render() {
         if(renderizar) {
@@ -41,32 +64,27 @@ public class Renderizador extends Canvas {
 
             this.graphics2d = (Graphics2D) bs.getDrawGraphics();
 
-            this.background();
-
-            for (Concreto concreto : this.elementosRenderizadosList) {
-                concreto.render(this.graphics2d, this.jFrame.getBounds().width, this.jFrame.getBounds().height);
+            for (Map.Entry<Integer, Layer> entry : this.layers.getLayerMap().entrySet()){
+                if(entry.getValue().isShow()){
+                    entry.getValue().render(this.graphics2d, this.janelaWidth, this.janelaHeight);
+                }
             }
 
             this.bs.show();
         }
     }
 
-    private void background() {
-        //background black
-        this.graphics2d.setColor(Color.BLACK);
-        this.graphics2d.fillRect(0, 0, this.height, this.width);
-
-        //painel cinza
-        this.graphics2d.setColor(new Color(25, 25, 25));
-        this.graphics2d.fillRect(this.height / 7, 0,
-                this.height - (this.height / 4) , this.width);
-
-        //linhas vermelhas marcando o centro
-		this.graphics2d.setColor(Color.RED);
-		this.graphics2d.fillRect(0, this.width/2, this.height, 1);
-
-		this.graphics2d.setColor(Color.RED);
-		this.graphics2d.fillRect(this.height/2, 0, 1, this.width);
+    @Override
+    public void run() {
+        Thread.currentThread().setName("TRD-RENDER");
+        System.out.println("INICIANDO THREAD RENDER");
+        while(true) {
+            try {
+                this.render();
+                Thread.sleep(1000/this.fps);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
 }

@@ -1,0 +1,26 @@
+package game.graphics.layer;
+
+import java.awt.*;
+
+public class TesteLayer extends Layer{
+
+    public TesteLayer (Integer camada, Boolean show){
+        this.camada = camada;
+        this.show = show;
+    }
+
+    @Override
+    public void render(Graphics2D graphics2D, int janelaWidth, int janelaHeight) {
+        //painel cinza
+        graphics2D.setColor(new Color(25, 25, 25));
+        graphics2D.fillRect(janelaHeight / 7, 0, janelaHeight - (janelaHeight / 4) , janelaWidth);
+
+        //linha vermelha vertical centralizada
+        graphics2D.setColor(Color.RED);
+        graphics2D.fillRect(0, janelaWidth/2, janelaHeight, 1);
+
+        //linha vermelha horizontal centralizada
+        graphics2D.setColor(Color.RED);
+        graphics2D.fillRect(janelaHeight /2, 0, 1, janelaWidth);
+    }
+}

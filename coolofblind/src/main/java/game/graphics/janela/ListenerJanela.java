@@ -1,8 +1,14 @@
-package game.graphics;
+package game.graphics.janela;
+
+import game.graphics.Renderizador;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+@Getter
+@Setter
 public class ListenerJanela extends ComponentAdapter {
 
     private Renderizador renderizador;
@@ -13,13 +19,10 @@ public class ListenerJanela extends ComponentAdapter {
         this.janela = janela;
     }
 
-
     @Override
     public void componentResized(ComponentEvent evt) {
-        this.renderizador.width = (int) this.janela.getBounds().getHeight();
-        this.renderizador.height = (int) this.janela.getBounds().getWidth();
+        this.renderizador.setJanelaWidth((int) this.janela.getBounds().getHeight());
+        this.renderizador.setJanelaHeight((int) this.janela.getBounds().getWidth());
         this.renderizador.requestFocusInWindow();
-//		System.out.println("ListenerJanela -> " + this.janela.getBounds());
     }
-
 }
