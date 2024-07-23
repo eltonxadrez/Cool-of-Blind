@@ -40,4 +40,5 @@ public class LayerImpl {
     public Boolean isShow(Integer camada){
         return this.layerMap.get(camada).show;
     }
+
 }

@@ -15,8 +15,9 @@ public final class ImageRepository {
     public static final String IMG_RECT_GRASS_01 = "/images/rect_grass_01.png";
     public static final String IMG_RECT_GREEN_01 = "/images/rect_green_01.png";
 
-    public static final String IMG_SPR_WARRIOR_LB = "/images/spr_warrior_lb.png";
-
+    public static final String IMG_SPR_WARRIOR_LB_01 = "/images/spr_warrior_lb_01.png";
+    public static final String IMG_SPR_WARRIOR_LB_02 = "/images/spr_warrior_lb_02.png";
+    public static final String IMG_SPR_WARRIOR_LB_03 = "/images/spr_warrior_lb_03.png";
 
     public BufferedImage getImageRepo (String imageLocation){
         try {

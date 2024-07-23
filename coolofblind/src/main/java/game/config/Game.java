@@ -23,8 +23,8 @@ public class Game implements Runnable{
 
 //tamanho janela / fps
     private Integer janelaWidth, janelaHeight;
-    private Integer fps = 120;
-    private Integer gameSpeed = 75;
+    private Integer fps = 60;
+    private Integer gameSpeed = 60;
 
     public Game() {
         init();

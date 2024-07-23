@@ -17,25 +17,55 @@ public class SpriteLayer extends Layer{
 
     private final ImageRepository imageRepository = new ImageRepository();
 
-    private BufferedImage imgSprWarriorLb = this.imageRepository.getImageRepo(ImageRepository.IMG_SPR_WARRIOR_LB);
+    private BufferedImage imgSprWarriorLb01 = this.imageRepository.getImageRepo(ImageRepository.IMG_SPR_WARRIOR_LB_01);
 
-    private Integer escala = 4;
+     private BufferedImage[] spriteSheetCaminhada;
 
     public SpriteLayer(Integer camada, Boolean show, Board board) {
-       this.camada = camada;
-       this.show = show;
-       this.board = board;
+        this.absPosX = 3;
+        this.absPosY = 3;
+        this.camada = camada;
+        this.show = show;
+        this.board = board;
+        this.spriteSheetCaminhada = new BufferedImage[3];
+        this.carregarCaminhada();
+    }
+
+    private int quadroCaminhada = 0;
+    public void carregarCaminhada(){
+        this.spriteSheetCaminhada[0] = this.imageRepository.getImageRepo(ImageRepository.IMG_SPR_WARRIOR_LB_02);
+        this.spriteSheetCaminhada[1] = this.imageRepository.getImageRepo(ImageRepository.IMG_SPR_WARRIOR_LB_01);
+        this.spriteSheetCaminhada[2] = this.imageRepository.getImageRepo(ImageRepository.IMG_SPR_WARRIOR_LB_03);
     }
 
     @Override
-    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala, Integer posXCam, Integer posYCam) {
-        int x = 3;
-        int y = 3;
-        graphics2D.drawImage(this.imgSprWarriorLb,
-                (janelaHeight/2) + (x * ((32/2) * escala) - (y * ((32 / 2) * escala)) + (7 * escala) + (posXCam)) ,
-                (janelaWidth /2) + (y * ((17/2) * escala) + (x * ((17 / 2) * escala)) - (22 * escala) + (posYCam)) ,
+    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer fpsRT, Integer fps, Integer escala, Integer posXCam, Integer posYCam) {
+
+        if(fpsRT>=45){
+            this.quadroCaminhada = 1;
+        }
+        else if(fpsRT >= 30){
+            this.quadroCaminhada = 2;
+        }
+        else if(fpsRT >= 15){
+            this.quadroCaminhada = 1;
+        }
+        else{
+            this.quadroCaminhada = 0;
+        }
+        graphics2D.drawImage(this.spriteSheetCaminhada[quadroCaminhada],
+                (janelaHeight/2) + (this.absPosX * ((32/2) * escala) - (this.absPosY * ((32 / 2) * escala)) + (7 * escala) + (posXCam)) ,
+                (janelaWidth /2) + (this.absPosY * ((17/2) * escala) + (this.absPosX * ((17 / 2) * escala)) - (22 * escala) + (posYCam)) ,
                 18 * escala,
                 35 * escala,
                 null);
+
+
+//        graphics2D.drawImage(this.imgSprWarriorLb01,
+//                (janelaHeight/2) + (this.absPosX * ((32/2) * escala) - (this.absPosY * ((32 / 2) * escala)) + (7 * escala) + (posXCam)) ,
+//                (janelaWidth /2) + (this.absPosY * ((17/2) * escala) + (this.absPosX * ((17 / 2) * escala)) - (22 * escala) + (posYCam)) ,
+//                18 * escala,
+//                35 * escala,
+//                null);
     }
 }

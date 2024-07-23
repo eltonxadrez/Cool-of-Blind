@@ -36,7 +36,7 @@ public class BoardLayer extends Layer{
     }
 
     @Override
-    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala, Integer posXCam, Integer posYCam) {
+    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer fpsRT, Integer fps, Integer escala, Integer posXCam, Integer posYCam) {
 
 
         for (int x = 0; x < this.board.getBoardTest().length; x++){

@@ -19,6 +19,7 @@ public class Renderizador extends Canvas implements Runnable {
     private Integer janelaWidth, janelaHeight;
     private LayerImpl layers;
     private Integer fps;
+    private Integer fpsRT;
     private Integer escala;
     private Integer posXCam;
     private Integer posYCam;
@@ -42,6 +43,7 @@ public class Renderizador extends Canvas implements Runnable {
         this.janelaWidth = janelaWidth;
         this.janelaHeight = janelaHeight;
         this.fps = fps;
+        this.fpsRT = 0;
         this.escala = 4;
         this.posXCam = 0;
         this.posYCam = 0;
@@ -49,13 +51,18 @@ public class Renderizador extends Canvas implements Runnable {
         this.inciarLayers();
     }
 
+    //deletar depois
+    private SpriteLayer spriteLayer;
+
     //adicionar as camadas a serem renderizadas aqui
     private void inciarLayers() {
         this.layers = new LayerImpl();
         this.layers.addLayer(new BackgroundLayer(1, true));
         this.layers.addLayer(new TesteLayer(2, true));
         this.layers.addLayer(new BoardLayer(3, true, this.game.getBoard()));
-        this.layers.addLayer(new SpriteLayer(4, true, this.game.getBoard()));
+
+        this.spriteLayer = new SpriteLayer(4, true, this.game.getBoard());
+        this.layers.addLayer(this.spriteLayer);
         //hud
     }
 
@@ -134,7 +141,7 @@ public class Renderizador extends Canvas implements Runnable {
 
             for (Map.Entry<Integer, Layer> entry : this.layers.getLayerMap().entrySet()){
                 if(entry.getValue().isShow()){
-                    entry.getValue().render(this.graphics2d, this.janelaWidth, this.janelaHeight, this.escala, this.posXCam, this.posYCam);
+                    entry.getValue().render(this.graphics2d, this.janelaWidth, this.janelaHeight, this.fpsRT, this.fps,  this.escala, this.posXCam, this.posYCam);
                 }
             }
             if(renderizar && !pausado){
@@ -143,19 +150,41 @@ public class Renderizador extends Canvas implements Runnable {
             //puxar resolucao
         }
     }
-
+    boolean modePersoSprite = false;
+    public void switchCameraMode(){
+        if(this.modePersoSprite){
+            this.modePersoSprite = false;
+        }
+        else{
+            this.modePersoSprite = true;
+        }
+    }
     public void moverCamera(){
-        if(this.posYM){
-            this.posYCam += 3;
+
+        if (this.modePersoSprite){
+            System.out.println(this.posXCam);
+            System.out.println(this.posYCam);
+            System.out.println(this.layers.getLayerMap().get(4).getAbsPosX());
+//            (janelaHeight/2) + (this.absPosX * ((32/2) * escala) - (this.absPosY * ((32 / 2) * escala)) + (7 * escala) + (posXCam)) ,
+//            (janelaWidth /2) + (this.absPosY * ((17/2) * escala) + (this.absPosX * ((17 / 2) * escala)) - (22 * escala) + (posYCam)) ,
+            //X+64
+            //Y-164
+            this.posXCam = ((this.spriteLayer.absPosX * ((-32/2) * escala)) ) + (-17 * escala) - (this.spriteLayer.absPosY * ((-32/2) * escala))  ;
+            this.posYCam = ((this.spriteLayer.absPosY * ((-17/2) * escala)) ) + (-7 * escala) + (this.spriteLayer.absPosX * ((-17/2) * escala)) ;
         }
-        if(this.posYP){
-            this.posYCam -= 3;
-        }
-        if(this.posXM){
-            this.posXCam += 3;
-        }
-        if(this.posXP){
-            this.posXCam -= 3;
+        else{
+            if(this.posYM){
+                this.posYCam += 3;
+            }
+            if(this.posYP){
+                this.posYCam -= 3;
+            }
+            if(this.posXM){
+                this.posXCam += 3;
+            }
+            if(this.posXP){
+                this.posXCam -= 3;
+            }
         }
     }
 
@@ -197,6 +226,10 @@ public class Renderizador extends Canvas implements Runnable {
                     this.render();
                 }
                 Thread.sleep(1000/this.fps);
+                this.fpsRT ++;
+                if(this.fpsRT > fps){
+                    this.fpsRT = 0;
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
