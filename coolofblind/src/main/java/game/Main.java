@@ -7,7 +7,7 @@ import game.config.Game;
 public class Main {
     public static void main(String[] args) {
         Game game = new Game();
-        game.gameThread = new Thread(game);
-        game.gameThread.start();
+        game.setGameThread(new Thread(game));
+        game.getGameThread().start();
     }
 }
