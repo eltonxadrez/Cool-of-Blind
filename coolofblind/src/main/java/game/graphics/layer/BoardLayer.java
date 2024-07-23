@@ -1,73 +1,60 @@
 package game.graphics.layer;
 
+import game.board.Board;
 import game.graphics.ImageRepository;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 @Getter
 @Setter
 public class BoardLayer extends Layer{
 
+    //acessar diretamente ou criar uma interface depois para o board
+    private Board board;
+
     //CRIAR UM SINGLETON DESSA CLASSE
     private final ImageRepository imageRepository = new ImageRepository();
 
     private BufferedImage imgIsoGrass01 = this.imageRepository.getImageRepo(ImageRepository.IMG_ISO_GRASS_01);
+    private BufferedImage imgIsoGrass02 = this.imageRepository.getImageRepo(ImageRepository.IMG_ISO_GRASS_02);
+    private BufferedImage imgIsoGrass03 = this.imageRepository.getImageRepo(ImageRepository.IMG_ISO_GRASS_03);
+
     private BufferedImage imgRectGrass01 = this.imageRepository.getImageRepo(ImageRepository.IMG_RECT_GRASS_01);
     private BufferedImage imgRectGreen01 = this.imageRepository.getImageRepo(ImageRepository.IMG_RECT_GREEN_01);
 
-    public BoardLayer(Integer camada) {
+//    private Integer escala = 4;
+
+//    AffineTransform trans = new AffineTransform();
+
+    public BoardLayer(Integer camada, Boolean show, Board board) {
         this.camada = camada;
         this.show = true;
+        this.board = board;
     }
 
     @Override
-    public void render(Graphics2D graphics2D, int janelaWidth, int janelaHeight) {
-
-        //ACESSAR O BOARD ORIGINAL E RENDERIZAR AQUI
-        System.out.println("BoardLayer camada > " + this.camada);
-
-        AffineTransform trans = new AffineTransform();
-
-        trans.translate(((double) janelaWidth/2) ,((double)janelaHeight/2));
-
-        int scale = 4;
-//        double scale = ((double) janelaWidth / 250);
-        trans.scale(scale,scale);
+    public void render(Graphics2D graphics2D, Integer janelaWidth, Integer janelaHeight, Integer escala) {
 
 
-//        graphics2D.setTransform(trans);
-        graphics2D.drawImage(this.imgRectGrass01, trans, null);
+        for (int x = 0; x < this.board.getBoardTest().length; x++){
+            for (int y = 0; y < this.board.getBoardTest().length; y++){
+//                if(this.board.getBoardTest()[x][y] == 'c'){
 
-//        graphics2D.setColor(new Color(75, 75, 75));
-//        graphics2D.fillRect(janelaWidth/2,janelaHeight/2,32,32);
+                    graphics2D.drawImage(this.imgIsoGrass03,
+                            (janelaHeight/2) + (x * ((32/2) * escala) - (y * ((32 / 2) * escala))) ,
+                            (janelaWidth /2) + (y * ((17/2) * escala) + (x * ((17 / 2) * escala))) ,
+                            32 * escala,
+                            17 * escala,
+                            null);
 
-
-//        for (int y = 0; y < boardTest.length; y++){
-//            for (int x = 0; x < boardTest.length; x++){
-//                if(boardTest[y][x] == 'c'){
-
-//                    AffineTransform trans = AffineTransform.getShearInstance(2d,2d);
-//                    graphics2D.setTransform(trans);
-
-//                    graphics2D.setColor(new Color(50, 50, 50));
-//                    graphics2D.fillRect(
-//                            (janelaWidth/2) + (x*33),
-//                            (janelaHeight/2) + (y*33),
-//                            32,
-//                            32);
-
-//                    graphics2D.drawImage(this.imgIsoGrass01,
-//                            (int)((janelaWidth * 50)/100)  + (x * 32),
-//                            (int)((janelaHeight * 50)/100)  + (y * 32),
-//                            null);
 
 //                }
-//            }
-//        }
+            }
+        }
+
 
     }
 }

@@ -62,7 +62,8 @@ public class Game implements Runnable{
 
     private void initMainComponents() {
         //this.entidades = new ArrayList<Entity>();
-        this.renderizador = new Renderizador(this.janelaWidth, this.janelaHeight, this.fps);
+        this.board = new Board();
+        this.renderizador = new Renderizador(this, this.janelaWidth, this.janelaHeight, this.fps);
         this.janela = new Janela(this.renderizador, this.janelaWidth, this.janelaHeight);
         this.teclado = new Teclado(this, this.janela, this.renderizador);
         this.renderizador.addKeyListener(this.teclado);

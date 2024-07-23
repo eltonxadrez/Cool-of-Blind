@@ -9,8 +9,14 @@ public final class ImageRepository {
 
     //teste
     public static final String IMG_ISO_GRASS_01 = "/images/iso_grass_01.png";
+    public static final String IMG_ISO_GRASS_02 = "/images/iso_grass_02.png";
+    public static final String IMG_ISO_GRASS_03 = "/images/iso_grass_03.png";
+
     public static final String IMG_RECT_GRASS_01 = "/images/rect_grass_01.png";
     public static final String IMG_RECT_GREEN_01 = "/images/rect_green_01.png";
+
+    public static final String IMG_SPR_WARRIOR_LB = "/images/spr_warrior_lb.png";
+
 
     public BufferedImage getImageRepo (String imageLocation){
         try {
