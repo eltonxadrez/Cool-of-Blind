@@ -134,7 +134,8 @@ public class Teclado implements KeyListener {
 
         }
         if(e.getKeyCode() == KeyEvent.VK_S) {
-            this.spriteLayer.absPosY ++;
+            this.spriteLayer.spriteAndarYPstart();
+//            this.spriteLayer.absPosY ++;
 
 
         }

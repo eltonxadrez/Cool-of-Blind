@@ -150,7 +150,7 @@ public class Renderizador extends Canvas implements Runnable {
             //puxar resolucao
         }
     }
-    boolean modePersoSprite = false;
+    boolean modePersoSprite = true;
     public void switchCameraMode(){
         if(this.modePersoSprite){
             this.modePersoSprite = false;
@@ -162,9 +162,6 @@ public class Renderizador extends Canvas implements Runnable {
     public void moverCamera(){
 
         if (this.modePersoSprite){
-            System.out.println(this.posXCam);
-            System.out.println(this.posYCam);
-            System.out.println(this.layers.getLayerMap().get(4).getAbsPosX());
 //            (janelaHeight/2) + (this.absPosX * ((32/2) * escala) - (this.absPosY * ((32 / 2) * escala)) + (7 * escala) + (posXCam)) ,
 //            (janelaWidth /2) + (this.absPosY * ((17/2) * escala) + (this.absPosX * ((17 / 2) * escala)) - (22 * escala) + (posYCam)) ,
             //X+64
