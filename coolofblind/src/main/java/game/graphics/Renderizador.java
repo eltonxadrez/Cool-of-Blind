@@ -63,6 +63,7 @@ public class Renderizador extends Canvas implements Runnable {
 
         this.spriteLayer = new SpriteLayer(4, true, this.game.getBoard());
         this.layers.addLayer(this.spriteLayer);
+//        this.layers.addLayer(new SpriteLayer(3, 3, 5, true, this.game.getBoard()));
         //hud
     }
 
@@ -150,7 +151,7 @@ public class Renderizador extends Canvas implements Runnable {
             //puxar resolucao
         }
     }
-    boolean modePersoSprite = true;
+    boolean modePersoSprite = false;
     public void switchCameraMode(){
         if(this.modePersoSprite){
             this.modePersoSprite = false;
@@ -166,8 +167,8 @@ public class Renderizador extends Canvas implements Runnable {
 //            (janelaWidth /2) + (this.absPosY * ((17/2) * escala) + (this.absPosX * ((17 / 2) * escala)) - (22 * escala) + (posYCam)) ,
             //X+64
             //Y-164
-            this.posXCam = ((this.spriteLayer.absPosX * ((-32/2) * escala)) ) + (-17 * escala) - (this.spriteLayer.absPosY * ((-32/2) * escala))  ;
-            this.posYCam = ((this.spriteLayer.absPosY * ((-17/2) * escala)) ) + (-7 * escala) + (this.spriteLayer.absPosX * ((-17/2) * escala)) ;
+            this.posXCam = ((this.spriteLayer.getMainSprite().absPosX * ((-32/2) * escala)) ) + (-17 * escala) - (this.spriteLayer.getMainSprite().absPosY * ((-32/2) * escala))  ;
+            this.posYCam = ((this.spriteLayer.getMainSprite().absPosY * ((-17/2) * escala)) ) + (-7 * escala) + (this.spriteLayer.getMainSprite().absPosX * ((-17/2) * escala)) ;
         }
         else{
             if(this.posYM){

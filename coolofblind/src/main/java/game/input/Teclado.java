@@ -126,21 +126,23 @@ public class Teclado implements KeyListener {
 
         //SPRITE TESTE DEBUG
         if(e.getKeyCode() == KeyEvent.VK_W) {
-            this.spriteLayer.absPosY --;
+            this.spriteLayer.getMainSprite().absPosY --;
 
         }
         if(e.getKeyCode() == KeyEvent.VK_A) {
-            this.spriteLayer.absPosX --;
+            this.spriteLayer.getMainSprite().absPosX --;
 
         }
         if(e.getKeyCode() == KeyEvent.VK_S) {
-            this.spriteLayer.spriteAndarYPstart();
+        	this.spriteLayer.getMainSprite().spriteAndarYPstart();
+//        	this.spriteLayer.getMainSprite().spriteCorrerYPstart();
+//            this.spriteLayer.spriteAndarYPstart();
 //            this.spriteLayer.absPosY ++;
 
 
         }
         if(e.getKeyCode() == KeyEvent.VK_D) {
-            this.spriteLayer.absPosX ++;
+            this.spriteLayer.getMainSprite().absPosX ++;
         }
 
     }
