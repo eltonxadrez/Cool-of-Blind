@@ -2,6 +2,8 @@ package game.graphics.layer;
 
 import java.awt.*;
 
+import game.graphics.Renderizador;
+
 public class TesteLayer extends Layer{
 
     public TesteLayer (Integer camada, Boolean show){

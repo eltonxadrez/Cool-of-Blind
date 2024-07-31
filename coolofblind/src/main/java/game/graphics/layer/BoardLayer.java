@@ -2,6 +2,7 @@ package game.graphics.layer;
 
 import game.board.Board;
 import game.graphics.ImageRepository;
+import game.graphics.Renderizador;
 import lombok.Getter;
 import lombok.Setter;
 

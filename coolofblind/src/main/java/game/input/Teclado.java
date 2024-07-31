@@ -9,10 +9,14 @@ import lombok.Setter;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 @Getter
 @Setter
-public class Teclado implements KeyListener {
+public class Teclado implements KeyListener, MouseWheelListener, MouseListener {
 
     private Game game;
     private Janela janela;
@@ -133,14 +137,27 @@ public class Teclado implements KeyListener {
             this.spriteLayer.getMainSprite().absPosX --;
 
         }
-        if(e.getKeyCode() == KeyEvent.VK_S) {
-        	this.spriteLayer.getMainSprite().spriteAndarYPstart();
+//        if(e.getKeyCode() == KeyEvent.VK_S && e.getKeyCode() == KeyEvent.VK_SHIFT) {
+//        	System.out.println("s 2 ");
+//        	this.spriteLayer.getMainSprite().spriteAndarYPstart();
 //        	this.spriteLayer.getMainSprite().spriteCorrerYPstart();
 //            this.spriteLayer.spriteAndarYPstart();
 //            this.spriteLayer.absPosY ++;
-
-
+        	
+        	
+//        }
+        if(e.getKeyCode() == KeyEvent.VK_S && e.isShiftDown()) {
+//        	System.out.println("S");        		
+        	this.spriteLayer.getMainSprite().spriteAndarYPstart();
+//            this.spriteLayer.spriteAndarYPstart();
+//            this.spriteLayer.absPosY ++;
         }
+        
+        else if(e.getKeyCode() == KeyEvent.VK_S) {
+        	this.spriteLayer.getMainSprite().spriteCorrerYPstart();
+//        	System.out.println("s2");
+        }
+        
         if(e.getKeyCode() == KeyEvent.VK_D) {
             this.spriteLayer.getMainSprite().absPosX ++;
         }
@@ -174,4 +191,40 @@ public class Teclado implements KeyListener {
             }
         }
     }
+    
+    
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if(e.getPreciseWheelRotation() > 0) {
+			this.renderizador.diminuirEscala();
+		}
+		else {
+			this.renderizador.aumentarEscala();
+		}
+	}
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

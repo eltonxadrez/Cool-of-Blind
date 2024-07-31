@@ -23,7 +23,7 @@ public class Game implements Runnable{
 
 //tamanho janela / fps
     private Integer janelaWidth, janelaHeight;
-    private Integer fps = 60;
+    private Integer fps = 120;
     private Integer gameSpeed = 60;
 
     public Game() {
@@ -67,6 +67,8 @@ public class Game implements Runnable{
         this.janela = new Janela(this.renderizador, this.janelaWidth, this.janelaHeight);
         this.teclado = new Teclado(this, this.janela, this.renderizador);
         this.renderizador.addKeyListener(this.teclado);
+        this.renderizador.addMouseListener(this.teclado);
+        this.renderizador.addMouseWheelListener(this.teclado);
         this.renderizador.setRenderizadorThread(new Thread(this.renderizador));
         this.renderizador.getRenderizadorThread().start();
     }

@@ -2,6 +2,8 @@ package game.graphics.layer;
 
 import java.awt.*;
 
+import game.graphics.Renderizador;
+
 public class Layer {
 
     public Integer camada;

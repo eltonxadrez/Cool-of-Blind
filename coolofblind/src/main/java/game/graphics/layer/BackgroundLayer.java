@@ -2,6 +2,8 @@ package game.graphics.layer;
 
 import java.awt.*;
 
+import game.graphics.Renderizador;
+
 public class BackgroundLayer extends Layer {
 
     public BackgroundLayer(Integer camada, Boolean show) {
