@@ -1,2 +1,2 @@
 # Cool-of-Blind
-cú de cego
+isso ai kkkk
